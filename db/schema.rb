@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20190304152018) do
     t.string  "experience_level"
     t.integer "sets"
     t.integer "repetitions"
+    t.integer "average_calories"
   end
 
   create_table "user_workouts", force: :cascade do |t|
