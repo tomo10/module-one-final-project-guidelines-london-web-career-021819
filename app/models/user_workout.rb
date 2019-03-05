@@ -1,6 +1,6 @@
-class User_Workout < ActiveRecord::Base
+class UserWorkout < ActiveRecord::Base
   belongs_to :user
-  belongs_to :workout 
+  belongs_to :workout
 
 
 end

@@ -19,15 +19,23 @@ class Workout < ActiveRecord::Base
     if user_input.downcase == 'y'
       #change user_workouts.workout_completed for this particular workout to 1
     end
-    calories_burnt #pass all the exercises done and find total calories. 
+    calories_burnt #pass all the exercises done and find total calories.
   end
 
-  def custom_workout(goal, workout_type, exercise_names)
 
 
-  end
+
+
+      # array.each do |i|
+      # exercise = Exercise.all.find {|exercise| exercise.name == i}
+      # if exercise == nil
+      #   puts "Exercise does not exist"
+      # WorkoutExercise.create(workout_id: self, exercise_id: exercise.id
+
+
 
   def calories_burnt(exercises_avg_cal)
     #takes the calories of each exercise and sums them and then returns that sum and adds it to the workout.
   end
+
 end

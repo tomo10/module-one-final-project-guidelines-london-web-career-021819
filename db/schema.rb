@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20190304215836) do
     t.integer  "weight"
     t.string   "gender"
     t.string   "goal"
-    t.datetime "last_login", null: false
+    t.datetime "last_login"
   end
 
   create_table "workout_exercises", force: :cascade do |t|

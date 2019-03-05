@@ -36,11 +36,47 @@ def menu
   06 create your own workout: log your exercises for your workout
   07 show all upper body workouts
   08 show all lower body workouts
-  10 show all cardio workouts
-  11 exit : exits this program"
+  09 show all cardio workouts
+  10 exit : exits this program"
+  menu_options
+
+end
+
+def menu_options
+  user_input = gets.chomp
+  case user_input
+  when 1
+    #workout function
+  when 2
+    user_stats
+  when 3
+    #update profile function
+  when 4
+    #update weight
+  when 5
+    #update fitness goals
+  when 6
+    custom_workout
+  when 7
+    upper_body
+  when 8
+    lower_body
+  when 9
+    cardio
+  when 10
+    exit_app
+  else
+    puts "Invalid selection"
+  end
 
 end
 
 def exit_app
   puts "Goodbye"
 end
+
+# def run
+#   greeting
+#   menu
+# end
+Workout.custom_workout 

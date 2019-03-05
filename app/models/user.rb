@@ -76,14 +76,50 @@ class User < ActiveRecord::Base
     update_weight
   end
 
-
+# MAIN MENU number 2
   def user_stats
-    #puts user info (goal, weight)
-    #puts all the workouts associated with our user
+    puts "Weight: #{self.weight}"   #puts user info (goal, weight)
+    puts "Goal: #{self.goal}"
+    puts "Workouts: " #puts all the workouts associated with our user
+    UserWorkout.all.select {|workout| workout.user_id == self}
+      puts workout
     #puts total calories burnt per workout
+
     #total calories burnt
     #
   end
+
+
+
+  # MAIN MENU number 6
+  def custom_workout
+    puts "Would you like to create an upper body workout, a lower body workout, or a cardiovascular workout?"
+    choice = STDIN.gets.chomp.downcase
+    if choice.include?("upper")
+      Exercise.display_upper_body
+    elsif choice.include?("lower")
+      Exercise.display_lower_body
+    elsif choice.include?("cardio")
+      Exercise.display_lower_body
+
+    puts "Please enter number of exercises you would like to do from list above: "
+    num_ex = STDIN.gets.chomp.to_i
+    ex_num = 1
+    array = []
+      begin
+        puts "Exercise #{ex_num}:"
+        var = STDIN.gets.chomp.downcase
+        if var == Exercise.name.downcase
+          array << Exercise.id  #THIS ISNT RIGHT
+
+        ex_num += 1
+      end while ex_num <= num_ex
+    array #need to add to database
+
+    array.each {|exercise| WorkoutExercise.create(workout_id: self, exercise_id: exercise.id) }
+    end
+  end
+end
 
 
 end

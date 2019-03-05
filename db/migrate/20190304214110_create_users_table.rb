@@ -9,7 +9,7 @@ class CreateUsersTable < ActiveRecord::Migration[5.0]
       t.integer :weight
       t.string :gender
       t.string :goal
-      t.datetime :last_login, null: false
+      t.datetime :last_login
     end
 
   end
