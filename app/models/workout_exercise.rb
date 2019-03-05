@@ -1,4 +1,6 @@
-class WorkoutExercise < ActiveRecord::Base
+class Workout_Exercise < ActiveRecord::Base
+  belongs_to :exercise
+  belongs_to :workout
 
 
 end

@@ -10,30 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190304152018) do
+ActiveRecord::Schema.define(version: 20190304215836) do
 
   create_table "exercises", force: :cascade do |t|
     t.string  "name"
     t.string  "description"
-    t.string  "experience_level"
+    t.string  "goal"
+    t.string  "exercise_type"
     t.integer "sets"
-    t.integer "repetitions"
-    t.integer "average_calories"
+    t.integer "reps"
+    t.integer "avg_calories_burnt"
   end
 
   create_table "user_workouts", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "workout_id"
-    t.datetime "date"
+    t.integer  "workout_completed", null: false
+    t.datetime "date_completed"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string  "name"
-    t.string  "password"
-    t.integer "age"
-    t.integer "weight"
-    t.string  "gender"
-    t.string  "experience_level"
+    t.string   "username"
+    t.string   "password"
+    t.integer  "age"
+    t.integer  "weight"
+    t.string   "gender"
+    t.string   "goal"
+    t.datetime "last_login", null: false
   end
 
   create_table "workout_exercises", force: :cascade do |t|
@@ -42,9 +45,9 @@ ActiveRecord::Schema.define(version: 20190304152018) do
   end
 
   create_table "workouts", force: :cascade do |t|
-    t.string "experience_level"
-    t.string "day_of_week"
-    t.string "type"
+    t.string  "goal"
+    t.string  "workout_type"
+    t.integer "total_calories_burnt"
   end
 
 end

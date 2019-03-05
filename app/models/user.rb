@@ -1,29 +1,70 @@
 class User < ActiveRecord::Base
+  has_many :user_workouts
+  has_many :workouts, through: :user_workouts
 
-  def register
-    puts "Please enter a username:"
-    username_input = gets.chomp
-    #check if no one else has username
-    puts "Please enter a password:"
-    password_input = gets.chomp
-    #create a new user instance.
-    new_user = User.new(name: username_input, password: password_input)
-    self.update_user_data
-  end
+  #this method registers the user on the application
+    def self.register
+      puts "Please enter a username: "
+      username = gets.chomp #get username
+      puts "Please enter a password: "
+      password = gets.chomp
+      username_check = User.all.find_by(username: username) #check if user already exists
+      if username_check != nil
+        puts "That username already exists. Please try another username."
+        User.register
+      else
+        user = User.new(username: username, password: password, last_login: datetime)
+        puts "Sucess! You are now registered!"
+      end
+    end
 
+#this method logs in an existing user
   def self.login
     puts "Please enter your username: "
-    #find_by username.
-    username_input =gets.chomp
-    #if user is not found puts "Username not found!"
-    #if user is found:
+    username = gets.chomp #get username
     puts "Please enter your password: "
-    password_input = gets.chomp
-    #check if password matches
-    #if password matches puts "Welcome #{username}!" return self (i.e. the current user instance)
-    #if password doesnot match, "Incorrect password, please try again. password_input = get.chomp. (3 tries)
+    password = gets.chomp
+    auth = authenticate_username(username)
+    if auth == nil
+      puts "User does not exist! Please try again"
+      login
+    else
+      user = authenticate_password(username, password)
+      if user == nil
+        puts "Incorrect password. Please try again."
+        login
+      else
+        puts "Login sucess!"
+        user.last_login = datetime #update last login time
+        return user
+      end
+    end
   end
 
+#this method checks if the username exists
+  def self.authenticate_username(username)
+    User.all.find_by(username: username)
+  end
+#this method checks if the password matches for an existing username
+  def self.authenticate_password(username, password)
+    User.all.find_by(username: username, password: password)
+  end
+
+#this method gets/updates the weight of the user
+  def update_weight
+    puts "Please enter your weight: "
+    weight = gets.chomp
+    self.weight = weight
+  end
+
+#this method gets/updates the fitness goal of the user
+  def update_goal
+    puts "What is your fitness goal (weight loss, muscle gain, or endurance)? Please choose one. "
+    goal = gets.chomp
+    self.goal = goal
+  end
+
+  #this method gets/updates all of the user attributes.
   def update_user_data
     puts "Please enter your age: "
     age = gets.chomp
@@ -31,28 +72,18 @@ class User < ActiveRecord::Base
     puts "Please enter your gender: "
     gender = gets.chomp
     self.gender = gender
-    puts "Please enter your weight: "
-    weight = gets.chomp
-    self.weight = weight
-    puts "Please enter your experience level (beginner, intermediate, or advanced): "
-    exp_lvl = gets.chomp
-    self.experience_level = exp_lvl
+    update_goal
+    update_weight
   end
 
 
-  def create_new_workout
-    puts "would you like to do a new workout? Please enter Y/N"
-  #get.chomp
-      if user_input.downcase == 'y'
-        #find workout that matches the experience_level and day of the week. result needs to pull the workout ID that matches criteria
-        UserWorkout.new(user_id: self, workout_id: result)
-      elsif
-        user_input.downcase == 'n'
-        puts #return to main menu
-      else
-        puts "Invalid input"
-        create_new_workout
-      end
+  def user_stats
+    #puts user info (goal, weight)
+    #puts all the workouts associated with our user
+    #puts total calories burnt per workout
+    #total calories burnt
+    #
   end
 
-  
+
+end
